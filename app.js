@@ -14,6 +14,12 @@ class Actividad {
         this.actividad = []
     }
 
+    agregarActividad (actividad) {
+        this.actividad = [...this.actividad, actividad];
+
+        console.log(this.actividad);
+    }
+
 }
 
 class UI {
@@ -45,7 +51,7 @@ class UI {
 
 }
 
-const administrarActivdad = new Actividad ();
+const administrarActividad = new Actividad ();
 const ui = new UI ();
 
 //Registrar eventos
@@ -88,4 +94,20 @@ function nuevaActividad(e){
         return;
     }
 
+    //Genera ID
+    actividadObj.id = Date.now();
+
+    //Crear actividad
+    administrarActividad.agregarActividad({...actividadObj});
+    reiniciarObjeto();
+    formulario.reset();
+
+}
+
+function reiniciarObjeto (){
+    actividadObj.usuario = "";
+    actividadObj.actividad = "";
+    actividadObj.fecha = "";
+    actividadObj.hora = "";
+    actividadObj.descripcion = "";
 }
