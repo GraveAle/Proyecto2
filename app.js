@@ -9,6 +9,20 @@ const descripcionInput = document.querySelector('#descripcion');
 const formulario = document.querySelector ('#nueva-actividad');
 const contenedorActividad = document.querySelector ('#actividad');
 
+class Actividad {
+    constructor (){
+        this.actividad = []
+    }
+
+}
+
+class UI {
+
+}
+
+const administrarActivdad = new Actividad ();
+const ui = new UI ();
+
 //Registrar eventos
 eventListeners();
 function eventListeners (){
@@ -17,6 +31,8 @@ function eventListeners (){
     fechaInput.addEventListener('input', datosActividad);
     horaInput.addEventListener('input', datosActividad);
     descripcionInput.addEventListener('input', datosActividad);
+
+    formulario.addEventListener('submit', nuevaActividad)
 
 }
 
@@ -32,4 +48,19 @@ const actividadObj = {
 //Agrega datos al obj 
 function datosActividad (e){
     actividadObj [e.target.name] = e.target.value;
+}
+
+//Valida y agrega una nueva cita a la clase de citas
+function nuevaActividad(e){
+    e.preventDefault();
+
+    //Extrae la informacion del obj de cita
+    const {usuario, actividad, fecha, hora, descripcion} = actividadObj;
+
+    //Validacion de datos
+    if (usuario === '' || actividad === '' || fecha === '' || hora === '' || descripcion === ''){
+        console.log ('Todos los campos son obligatorios');
+        return;
+    }
+
 }
