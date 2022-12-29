@@ -17,6 +17,31 @@ class Actividad {
 }
 
 class UI {
+    imprimirAlerta(mensaje, tipo) {
+        //Crear el div
+        const divMensaje = document.createElement ('div');
+        divMensaje.classList.add ('text-center', 'alert', 'd-block', 'col-12');       
+
+        //Agrega clase en base al tipo de error
+        if(tipo === 'error'){
+            divMensaje.classList.add('alert-danger');
+        } else {
+            divMensaje.classList.add('alert-success');
+        }
+
+        //Mensaje error
+
+        divMensaje.textContent = mensaje;
+
+        //Agregar al DOM
+        document.querySelector('#contenido').insertBefore(divMensaje, document.querySelector('.agregar-actividad'));
+
+        //Quitar alerta despues de 5s
+
+        setTimeout ( () => {
+            divMensaje.remove();
+        }, 5000);
+    }
 
 }
 
@@ -59,7 +84,7 @@ function nuevaActividad(e){
 
     //Validacion de datos
     if (usuario === '' || actividad === '' || fecha === '' || hora === '' || descripcion === ''){
-        console.log ('Todos los campos son obligatorios');
+        ui.imprimirAlerta ('Todos los campos son obligatorios', 'error');
         return;
     }
 
