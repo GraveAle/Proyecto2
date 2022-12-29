@@ -7,7 +7,7 @@ const descripcionInput = document.querySelector('#descripcion');
 
 //Interfaz de usuario
 const formulario = document.querySelector ('#nueva-actividad');
-const contenedorActividad = document.querySelector ('#actividad');
+const contenedorActividad = document.querySelector ('#administra');
 
 class Actividad {
     constructor (){
@@ -48,6 +48,61 @@ class UI {
             divMensaje.remove();
         }, 5000);
     }
+
+        imprimirActividad({actividad}) {
+
+            this.limpiarHTML();
+
+            actividad.forEach( function (actividades) {
+                    const { usuario, actividad, fecha, hora, descripcion, id } = actividades;
+
+                    const divActividades = document.createElement('div');
+                    divActividades.classList.add('actividad', 'p-3');
+                    divActividades.dataset.id = id;
+
+                    const usuarioParrafo = document.createElement('h2');
+                    usuarioParrafo.classList.add('card-title', 'font-weight-bolder');
+                    usuarioParrafo.textContent = usuario;
+
+                    const actividadParrafo = document.createElement ('p');
+                    actividadParrafo.innerHTML = `
+                        <span class="font-weight-bolder">Actividad: </span> ${actividad}
+                    `;
+
+                    const fechaParrafo = document.createElement ('p');
+                    fechaParrafo.innerHTML = `
+                        <span class="font-weight-bolder">Fecha: </span> ${fecha}
+                    `;
+
+                    
+                    const horaParrafo = document.createElement ('p');
+                    horaParrafo.innerHTML = `
+                        <span class="font-weight-bolder">Hora: </span> ${hora}
+                    `;
+
+                    const descripcionParrafo = document.createElement ('p');
+                    descripcionParrafo.innerHTML = `
+                        <span class="font-weight-bolder">Descripcion: </span> ${descripcion}
+                    `;
+
+                    divActividades.appendChild(usuarioParrafo);
+                    divActividades.appendChild(actividadParrafo);
+                    divActividades.appendChild(fechaParrafo);
+                    divActividades.appendChild(horaParrafo);
+                    divActividades.appendChild(descripcionParrafo);
+
+                    //Agrega las actividades al HTML
+                    contenedorActividad.appendChild(divActividades);
+
+                })
+            
+        }
+
+        limpiarHTML (){
+            while(contenedorActividad.firstChild) {
+                contenedorActividad.removeChild(contenedorActividad.firstChild)
+            }
+        }
 
 }
 
@@ -101,6 +156,8 @@ function nuevaActividad(e){
     administrarActividad.agregarActividad({...actividadObj});
     reiniciarObjeto();
     formulario.reset();
+
+    ui.imprimirActividad(administrarActividad);
 
 }
 
