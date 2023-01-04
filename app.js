@@ -26,6 +26,12 @@ class Actividad {
         this.actividad = this.actividad.filter ( actividad => actividad.id !== id)
     }
 
+    editarActividad(actividadActualizada) {
+        this.actividad = this.actividad.map (actividad => actividad.id === actividadActualizada.id 
+                                                                        ? actividadActualizada
+                                                                        : actividad )
+    }
+
 }
 
 class UI {
@@ -175,6 +181,8 @@ function nuevaActividad(e){
         ui.imprimirAlerta('Editado correctamente');
 
         //Pasar el objeto a edición
+
+        administrarActividad.editarActividad({...actividadObj});
 
         formulario.querySelector('button[type="submit"]').textContent = 'Crear cita';
         //Quita modo edición
